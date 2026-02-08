@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Starfield</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Splash -->
+<div id="splash-screen" class="screen">
+    <canvas id="splash-canvas"></canvas>
+    <div class="title">BITWISE</div>
+    <div class="subtitle">Binary Lockpicking</div>
+    <button id="btn-start" class="btn primary" style="margin-top:8px">Play</button>
+</div>
+
+<!-- Difficulty -->
+<div id="difficulty-screen" class="screen hidden">
+    <div class="diff-heading">Select Difficulty</div>
+    <button class="btn diff-btn" data-label="Novice">Novice<div class="meta">8 bits / 2 rings / 4 keys</div></button>
+    <button class="btn diff-btn" data-label="Advanced">Advanced<div class="meta">12 bits / 2 rings / 6 keys</div></button>
+    <button class="btn diff-btn" data-label="Expert">Expert<div class="meta">16 bits / 3 rings / 6 keys</div></button>
+    <button class="btn diff-btn" data-label="Master">Master<div class="meta">24 bits / 4 rings / 8 keys</div></button>
+</div>
+
+<!-- Game -->
+<div id="game-screen" class="screen hidden">
+    <div class="game-hud">
+        <div class="hud-group">
+            <span class="hud-chip"><span class="hud-icon">&#9733;</span><span id="hud-score">0</span></span>
+        </div>
+        <span class="hud-center" id="hud-diff"></span>
+        <div class="hud-group">
+            <span class="hud-chip"><span class="hud-icon">&#9201;</span><span id="hud-time">0:00</span></span>
+        </div>
+    </div>
+    <div class="game-status" id="hud-status"></div>
+    <canvas id="game-canvas"></canvas>
+    <div class="game-status" id="game-flash"></div>
+    <div class="key-tray" id="key-tray"></div>
+    <div class="game-controls">
+        <div class="ctrl-col">
+            <button id="btn-left" class="ctrl-btn">&#9664;</button>
+        </div>
+        <div class="ctrl-col">
+            <button id="btn-undo" class="ctrl-btn disabled">&#8634;</button>
+            <span class="ctrl-label">undo</span>
+        </div>
+        <div class="ctrl-col">
+            <button id="btn-slot" class="ctrl-btn slot-btn disabled">&#10003;</button>
+            <span class="ctrl-label">slot</span>
+        </div>
+        <div class="ctrl-col">
+            <button id="btn-right" class="ctrl-btn">&#9654;</button>
+        </div>
+    </div>
+</div>
+
+<!-- Win -->
+<div id="win-screen" class="screen hidden">
+    <div class="win-title">Lock Picked</div>
+    <div class="win-stats">
+        <div class="win-row"><span class="label">Difficulty</span><span class="val" id="win-diff"></span></div>
+        <div class="win-row"><span class="label">Bits</span><span class="val" id="win-bits"></span></div>
+        <div class="win-row"><span class="label">Rings</span><span class="val" id="win-rings"></span></div>
+        <div class="win-row"><span class="label">Score</span><span class="val" id="win-score"></span></div>
+        <div class="win-row"><span class="label">Time</span><span class="val" id="win-time"></span></div>
+        <div class="win-row"><span class="label">Moves</span><span class="val" id="win-moves"></span></div>
+        <div class="win-row"><span class="label">Keys Used</span><span class="val" id="win-keys"></span></div>
+    </div>
+    <div class="win-buttons">
+        <button id="btn-again" class="btn primary win-btn">Play Again</button>
+        <button id="btn-diff" class="btn win-btn">Change Difficulty</button>
+    </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

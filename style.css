@@ -1,0 +1,304 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --bg: #0a0e17;
+    --surface: #141a28;
+    --surface2: #1c2436;
+    --primary: #7eb8ff;
+    --primary-dim: rgba(126, 184, 255, 0.12);
+    --primary-glow: rgba(126, 184, 255, 0.25);
+    --secondary: #5ce4c8;
+    --secondary-dim: rgba(92, 228, 200, 0.15);
+    --on-bg: #c8d8ef;
+    --on-bg-dim: #6b7a94;
+    --accent-gold: #f0c850;
+    --accent-red: #ff6b6b;
+    --ring-filled: rgba(126, 184, 255, 0.85);
+    --ring-empty: rgba(126, 184, 255, 0.08);
+    --ring-hover: rgba(92, 228, 200, 0.5);
+    --ring-invalid: rgba(255, 107, 107, 0.4);
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html, body {
+    width: 100%; height: 100%;
+    background: var(--bg);
+    color: var(--on-bg);
+    font-family: var(--font);
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ---------- Screens ---------- */
+
+.screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.35s ease;
+}
+.screen.hidden { opacity: 0; pointer-events: none; }
+
+/* ---------- Splash ---------- */
+
+#splash-screen { gap: 24px; }
+
+#splash-canvas {
+    width: min(75vw, 360px);
+    height: min(75vw, 360px);
+}
+
+.title {
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--primary);
+    text-shadow: 0 0 30px rgba(126, 184, 255, 0.3);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    color: var(--on-bg-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+    padding: 14px 32px;
+    border: 1px solid var(--primary-dim);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--on-bg);
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    outline: none;
+}
+.btn:hover, .btn:active {
+    background: var(--primary-dim);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.btn.primary {
+    background: var(--primary-dim);
+    border-color: rgba(126, 184, 255, 0.3);
+    color: var(--primary);
+}
+.btn .meta {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--on-bg-dim);
+    margin-top: 3px;
+}
+
+/* ---------- Difficulty ---------- */
+
+#difficulty-screen { gap: 12px; }
+
+.diff-heading {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.diff-btn {
+    width: min(80vw, 300px);
+    padding: 14px 0;
+}
+
+/* ---------- Game ---------- */
+
+#game-screen { justify-content: flex-start; }
+
+.game-hud {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+}
+
+.hud-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.hud-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    background: var(--surface);
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+.hud-icon { font-size: 0.85rem; opacity: 0.7; }
+
+.hud-center {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+.game-status {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+    padding: 2px 0;
+    min-height: 22px;
+}
+
+#game-canvas {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+}
+
+/* ---------- Key Tray ---------- */
+
+.key-tray {
+    display: flex;
+    gap: 8px;
+    padding: 8px 16px;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.key-slot {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-dim);
+    background: var(--surface);
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    flex-shrink: 0;
+}
+.key-slot:hover { border-color: var(--primary); }
+.key-slot.selected {
+    border-color: var(--primary);
+    background: var(--primary-dim);
+    box-shadow: 0 0 12px rgba(126, 184, 255, 0.25);
+}
+.key-slot.used {
+    opacity: 0.2;
+    pointer-events: none;
+    border-color: var(--on-bg-dim);
+}
+.key-slot canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* ---------- Game Controls ---------- */
+
+.game-controls {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0 20px;
+    gap: 8px;
+}
+
+.ctrl-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-dim);
+    background: var(--surface);
+    color: var(--primary);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.12s;
+}
+.ctrl-btn:hover, .ctrl-btn:active {
+    background: var(--primary-dim);
+    border-color: var(--primary);
+}
+.ctrl-btn.slot-btn {
+    width: 58px;
+    height: 58px;
+    border-color: var(--secondary);
+    color: var(--secondary);
+    font-size: 1.6rem;
+}
+.ctrl-btn.slot-btn:hover, .ctrl-btn.slot-btn:active {
+    background: var(--secondary-dim);
+}
+.ctrl-btn.disabled {
+    border-color: var(--on-bg-dim);
+    color: var(--on-bg-dim);
+    opacity: 0.25;
+    cursor: default;
+}
+.ctrl-btn.disabled:hover { background: var(--surface); }
+
+.ctrl-label {
+    font-size: 0.6rem;
+    color: var(--on-bg-dim);
+    text-align: center;
+    margin-top: -4px;
+}
+
+.ctrl-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ---------- Win ---------- */
+
+#win-screen { gap: 16px; }
+
+.win-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--secondary);
+    text-shadow: 0 0 24px rgba(92, 228, 200, 0.3);
+}
+
+.win-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: min(80vw, 280px);
+}
+
+.win-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--primary-dim);
+    font-size: 0.85rem;
+}
+.win-row .label { color: var(--on-bg-dim); }
+.win-row .val { font-weight: 600; }
+
+.win-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+.win-btn { width: min(80vw, 260px); }
